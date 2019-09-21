@@ -12,9 +12,12 @@ namespace CitationUniSofia.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment env;
+
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            this.env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -33,9 +36,25 @@ namespace CitationUniSofia.Web
                 options.UseSqlServer(
                     this.Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<CitationUniSofiaUser>()
-                .AddEntityFrameworkStores<CitationUniSofiaContext>();
+            if (env.IsDevelopment())
+            {
+                services.AddDefaultIdentity<CitationUniSofiaUser>(
+                    options =>
+                    {
+                        options.Password.RequireDigit = false;
+                        options.Password.RequiredLength = 3;
+                        options.Password.RequireLowercase = false;
+                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequireUppercase = false;
+                    })
+                    .AddEntityFrameworkStores<CitationUniSofiaContext>();
 
+             }
+            else
+            {
+                services.AddDefaultIdentity<CitationUniSofiaUser>()
+                .AddEntityFrameworkStores<CitationUniSofiaContext>();
+            }
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
