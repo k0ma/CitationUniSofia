@@ -4,14 +4,16 @@ using CitationUniSofia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CitationUniSofia.Data.Migrations
 {
     [DbContext(typeof(CitationUniSofiaContext))]
-    partial class CitationUniSofiaContextModelSnapshot : ModelSnapshot
+    [Migration("20190922140139_Update_LinkingTable")]
+    partial class Update_LinkingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -313,11 +315,11 @@ namespace CitationUniSofia.Data.Migrations
 
                     b.Property<string>("AlternativeIndexedResource1");
 
+                    b.Property<int?>("AuthorId");
+
                     b.Property<int?>("CountryId");
 
                     b.Property<string>("Detail");
-
-                    b.Property<string>("ISBN");
 
                     b.Property<string>("ISSN");
 
@@ -340,6 +342,8 @@ namespace CitationUniSofia.Data.Migrations
                     b.Property<string>("Title1");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("CountryId");
 
@@ -369,21 +373,6 @@ namespace CitationUniSofia.Data.Migrations
                     b.ToTable("PublicationsAreasScience");
                 });
 
-            modelBuilder.Entity("CitationUniSofia.Data.Model.PublicationAuthor", b =>
-                {
-                    b.Property<int>("PublicationId");
-
-                    b.Property<int>("AuthorId");
-
-                    b.Property<int>("Id");
-
-                    b.HasKey("PublicationId", "AuthorId");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("PublicationsAuthors");
-                });
-
             modelBuilder.Entity("CitationUniSofia.Data.Model.PublicationCitation", b =>
                 {
                     b.Property<int>("PublicationId");
@@ -395,6 +384,8 @@ namespace CitationUniSofia.Data.Migrations
                     b.Property<int>("Sequence");
 
                     b.HasKey("PublicationId", "CitationId");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("CitationId");
 
@@ -587,6 +578,10 @@ namespace CitationUniSofia.Data.Migrations
 
             modelBuilder.Entity("CitationUniSofia.Data.Model.Publication", b =>
                 {
+                    b.HasOne("CitationUniSofia.Data.Model.Author", "Author")
+                        .WithMany("Publications")
+                        .HasForeignKey("AuthorId");
+
                     b.HasOne("CitationUniSofia.Data.Model.Country", "Country")
                         .WithMany("Publications")
                         .HasForeignKey("CountryId");
@@ -613,19 +608,6 @@ namespace CitationUniSofia.Data.Migrations
 
                     b.HasOne("CitationUniSofia.Data.Model.Publication", "Publication")
                         .WithMany("PublicationsAreasScience")
-                        .HasForeignKey("PublicationId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CitationUniSofia.Data.Model.PublicationAuthor", b =>
-                {
-                    b.HasOne("CitationUniSofia.Data.Model.Author", "Author")
-                        .WithMany("PublicationsAuthors")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CitationUniSofia.Data.Model.Publication", "Publication")
-                        .WithMany("PublicationsAuthors")
                         .HasForeignKey("PublicationId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

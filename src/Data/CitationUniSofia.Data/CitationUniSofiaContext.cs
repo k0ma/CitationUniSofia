@@ -15,16 +15,19 @@
         public DbSet<Institution> Institutions { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<FieldScience> FieldsSciences { get; set; }
+        public DbSet<AreaScience> AreasScience { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Metadata> Metadata { get; set; }
+        public DbSet<CitationType> CitationTypes { get; set; }
+        public DbSet<Citation> Citations { get; set; }
         public DbSet<PublicationType> PublicationTypes { get; set; }
         public DbSet<Publication> Publications { get; set; }
         public DbSet<PublicationMetadata> PublicationsMetadata { get; set; }
-        public DbSet<CitationType> CitationTypes { get; set; }
-        public DbSet<Citation> Citations { get; set; }
         public DbSet<PublicationCitation> PublicationsCitations { get; set; }
-        public DbSet<PublicationFieldScience> PublicationsFieldsSciences { get; set; }
+        public DbSet<PublicationAreaScience> PublicationsAreasScience { get; set; }
+        public DbSet<AuthorInstitution> AuthorsInstitutions { get; set; }
+        public DbSet<PublicationAuthor> PublicationsAuthors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -53,33 +56,69 @@
                     pc.PublicationId,
                     pc.CitationId
                 });
+            
 
             builder.Entity<PublicationCitation>()
                 .HasOne(pc => pc.Citation)
                 .WithMany(c => c.PublicationsCitations)
-                .HasForeignKey(c => c.CitationId);
+                .HasForeignKey(c => c.CitationId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<PublicationCitation>()
                 .HasOne(pc => pc.Publication)
                 .WithMany(p => p.PublicationsCitations)
                 .HasForeignKey(p => p.PublicationId);
 
-            builder.Entity<PublicationFieldScience>()
+            builder.Entity<PublicationAreaScience>()
                 .HasKey(pfs => new
                 {
                     pfs.PublicationId,
-                    pfs.FieldScienceId
+                    pfs.AreaScienceId
                 });
 
-            builder.Entity<PublicationFieldScience>()
-                .HasOne(pfs => pfs.FieldScience)
-                .WithMany(fs => fs.PublicationsFieldsScience)
-                .HasForeignKey(fs => fs.FieldScienceId);
+            builder.Entity<PublicationAreaScience>()
+                .HasOne(pas => pas.AreaScience)
+                .WithMany(asc => asc.PublicationsAreasScience)
+                .HasForeignKey(asc => asc.AreaScienceId);
 
-            builder.Entity<PublicationFieldScience>()
+            builder.Entity<PublicationAreaScience>()
                 .HasOne(pfs => pfs.Publication)
-                .WithMany(p => p.PublicationsFieldsScience)
+                .WithMany(p => p.PublicationsAreasScience)
                 .HasForeignKey(p => p.PublicationId);
+
+            builder.Entity<AuthorInstitution>()
+                .HasKey(au => new
+                {
+                    au.AuthorId,
+                    au.InstitutionId
+                });
+
+            builder.Entity<AuthorInstitution>()
+                .HasOne(au => au.Author)
+                .WithMany(a => a.AuthorsInstitutions)
+                .HasForeignKey(i => i.AuthorId);
+
+            builder.Entity<AuthorInstitution>()
+                .HasOne(ai => ai.Institution)
+                .WithMany(i => i.AuthorsInstitutions)
+                .HasForeignKey(i => i.InstitutionId);
+
+            builder.Entity<PublicationAuthor>()
+                .HasKey(pa => new
+                {
+                    pa.PublicationId,
+                    pa.AuthorId
+                });
+
+            builder.Entity<PublicationAuthor>()
+                .HasOne(pa => pa.Author)
+                .WithMany(a => a.PublicationsAuthors)
+                .HasForeignKey(a => a.AuthorId);
+
+            builder.Entity<PublicationAuthor>()
+                .HasOne(pm => pm.Publication)
+                .WithMany(p => p.PublicationsAuthors)
+                .HasForeignKey(p => p.PublicationId);            
         }
     }
 }

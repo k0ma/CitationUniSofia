@@ -8,8 +8,9 @@
     {
         public Author()
         {
-            this.Publications = new HashSet<Publication>();
+            this.PublicationsAuthors = new HashSet<PublicationAuthor>();
             this.Citations = new HashSet<Citation>();
+            this.AuthorsInstitutions = new HashSet<AuthorInstitution>();
         }
 
         [Required]
@@ -20,14 +21,14 @@
 
         public string AuthorIdentifier1 { get; set; }
 
-        public string AuthorInstitutionId { get; set; }
-
         public string AlternativeName { get; set; }
 
         public string TransliterationName { get; set; }
 
-        public ICollection<Publication> Publications { get; set; }
+        public ICollection<PublicationAuthor> PublicationsAuthors { get; set; }
 
         public ICollection<Citation> Citations { get; set; }
+
+        public ICollection<AuthorInstitution> AuthorsInstitutions { get; set; }
     }
 }

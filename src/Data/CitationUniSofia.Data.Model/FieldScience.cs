@@ -8,7 +8,7 @@
     {
         public FieldScience()
         {
-            this.PublicationsFieldsScience = new HashSet<PublicationFieldScience>();
+            this.AreasScience = new HashSet<AreaScience>();
         }
 
         public string FieldScienceIdentifier { get; set; }
@@ -24,7 +24,7 @@
         public string EnglishName { get; set; }
 
         public string EnglishName1 { get; set; }
-
-        public ICollection<PublicationFieldScience> PublicationsFieldsScience { get; set; }
+        
+        public ICollection<AreaScience> AreasScience { get; set; }
     }
 }

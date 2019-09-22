@@ -11,7 +11,7 @@
             this.PublicationsCitations = new HashSet<PublicationCitation>();
         }
 
-        public int sequence { get; set; }
+        public int Sequence { get; set; }
 
         [Required]
         [StringLength(200, MinimumLength = 3)]
@@ -27,13 +27,13 @@
 
         public string Pages { get; set; }
 
-        public int CitationTypeId { get; set; }
-        public CitationType CitationType { get; set; }
+        public int? CitationTypeId { get; set; }
+        public virtual CitationType CitationType { get; set; }
 
-        public int AuthorId { get; set; }
+        public int? AuthorId { get; set; }
         public virtual Author Author { get; set; }
 
-        public int InstitutionId { get; set; }
+        public int? InstitutionId { get; set; }
         public virtual Institution Institution { get; set; }
 
         public ICollection<PublicationCitation> PublicationsCitations { get; set; }

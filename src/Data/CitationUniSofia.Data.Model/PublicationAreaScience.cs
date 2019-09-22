@@ -1,17 +1,15 @@
 ﻿namespace CitationUniSofia.Data.Model
 {
     using CitationUniSofia.Data.Common;
-    using System.ComponentModel.DataAnnotations;
 
-    public class PublicationCitation : BaseModel<int>
+    public class PublicationAreaScience : BaseModel<int>
     {
-        public int Id { get; set; }
         public int Sequence { get; set; }
 
         public int PublicationId { get; set; }
         public virtual Publication Publication { get; set; }
 
-        public int CitationId { get; set; }
-        public virtual Citation Citation { get; set; }
+        public int AreaScienceId { get; set; }
+        public virtual AreaScience AreaScience { get; set; }
     }
 }

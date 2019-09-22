@@ -9,11 +9,14 @@
         public Publication()
         {
             this.PublicationsMetadata = new HashSet<PublicationMetadata>();
-            this.PublicationsFieldsScience = new HashSet<PublicationFieldScience>();
+            this.PublicationsAreasScience = new HashSet<PublicationAreaScience>();
             this.PublicationsCitations = new HashSet<PublicationCitation>();
+            this.PublicationsAuthors = new HashSet<PublicationAuthor>();
         }
 
         public string ISSN { get; set; }
+
+        public string ISBN { get; set; }
 
         [Required]
         [StringLength(200, MinimumLength = 3)]
@@ -33,26 +36,25 @@
 
         public string Summary { get; set; }
 
-        public int PublicationTypeId { get; set; }
-        public PublicationType PublicationType { get; set; }
+        public int? PublicationTypeId { get; set; }
+        public virtual PublicationType PublicationType { get; set; }
 
-        public int LanguageId { get; set; }
+        public int? LanguageId { get; set; }
         public virtual Language Language { get; set; }
 
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
         public virtual Country Country { get; set; }
 
-        public int AuthorId { get; set; }
-        public virtual Author Author { get; set; }
-
-        public int InstitutionId { get; set; }
+        public int? InstitutionId { get; set; }
         public virtual Institution Institution { get; set; }
         
         public ICollection<PublicationMetadata> PublicationsMetadata { get; set; }
 
-        public ICollection<PublicationFieldScience> PublicationsFieldsScience { get; set; }
+        public ICollection<PublicationAreaScience> PublicationsAreasScience { get; set; }
 
-        public ICollection<PublicationCitation> PublicationsCitations { get; set; }   
+        public ICollection<PublicationCitation> PublicationsCitations { get; set; }
+
+        public ICollection<PublicationAuthor> PublicationsAuthors { get; set; }
     }
 }
 

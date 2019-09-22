@@ -10,6 +10,7 @@ namespace CitationUniSofia.Data.Model
         {
             this.Publications = new HashSet<Publication>();
             this.Citations = new HashSet<Citation>();
+            this.AuthorsInstitutions = new HashSet<AuthorInstitution>();
         }
 
         public string Identifier { get; set; }
@@ -36,12 +37,14 @@ namespace CitationUniSofia.Data.Model
 
         public string TransliterationAddress { get; set; }
 
-        public int InstitutionTypeId { get; set; }
+        public int? InstitutionTypeId { get; set; }
         public virtual InstitutionType InstitutionType { get; set; }
 
         public ICollection<Publication> Publications { get; set; }
 
         public ICollection<Citation> Citations { get; set; }
+
+        public ICollection<AuthorInstitution> AuthorsInstitutions { get; set; }
 
     }
 }

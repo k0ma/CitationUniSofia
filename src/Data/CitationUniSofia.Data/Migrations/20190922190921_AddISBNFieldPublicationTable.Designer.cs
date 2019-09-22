@@ -4,14 +4,16 @@ using CitationUniSofia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CitationUniSofia.Data.Migrations
 {
     [DbContext(typeof(CitationUniSofiaContext))]
-    partial class CitationUniSofiaContextModelSnapshot : ModelSnapshot
+    [Migration("20190922190921_AddISBNFieldPublicationTable")]
+    partial class AddISBNFieldPublicationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -395,6 +397,8 @@ namespace CitationUniSofia.Data.Migrations
                     b.Property<int>("Sequence");
 
                     b.HasKey("PublicationId", "CitationId");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("CitationId");
 
