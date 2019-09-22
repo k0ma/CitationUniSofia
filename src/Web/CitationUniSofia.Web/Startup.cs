@@ -1,5 +1,5 @@
-﻿using CitationUniSofia.Web.Areas.Identity.Data;
-using CitationUniSofia.Web.Models;
+﻿using CitationUniSofia.Data.Model;
+using CitationUniSofia.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

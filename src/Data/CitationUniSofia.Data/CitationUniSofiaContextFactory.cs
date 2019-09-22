@@ -1,4 +1,4 @@
-﻿using CitationUniSofia.Web.Models;
+﻿using CitationUniSofia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Diagnostics;

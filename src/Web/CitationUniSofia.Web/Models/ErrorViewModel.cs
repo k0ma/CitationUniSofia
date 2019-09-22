@@ -1,6 +1,6 @@
 using System;
 
-namespace CitationUniSofia.Web.Models
+namespace CitationUniSofia.Data
 {
     public class ErrorViewModel
     {
