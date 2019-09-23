@@ -1,8 +1,63 @@
-﻿@{ 
+﻿@model CitationUniSofia.Web.Models.Publication.PublicationsCollectionViewModel
+@{ 
     ViewData["Title"] = "Puplications";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>All publications here</p>
-</div>
+    <h1 class="display-4">Publications</h1>
+    
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ISSN</th>
+                    <th>Заглавие</th>
+                    <th>Заглавие на индексиран ресурс</th>
+                    <th>Други форми на заглавието на индексиран ресурс</th>
+                    <th>Физическа характеристика</th>
+                    <th>Резюме</th>
+                    <th>Тип публикация</th>
+                    <th>Език</th>
+                    <th>Държава</th>
+                    <th>Автор</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.Publications)
+                    {
+                        <tr>
+                            <td>
+                                @item.ISSN
+                            </td>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.IndexedResource
+                            </td>
+                            <td>
+                                @item.AlternativeIndexedResource
+                            </td>
+                            <td>
+                                @item.Detail
+                            </td>
+                            <td>
+                                @item.Summary
+                            </td>
+                            <td>
+                                @item.PublicationTypeName
+                            </td>
+                            <td>
+                                @item.Language
+                            </td>
+                            <td>
+                                @item.Country
+                            </td>
+                            <td>
+                                @string.Join(", ", item.PublicationsAuthors)
+                            </td>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
