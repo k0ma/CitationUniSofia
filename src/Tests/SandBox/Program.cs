@@ -1,6 +1,7 @@
 ﻿namespace SandBox
 {
     using CitationUniSofia.Data;
+    using CitationUniSofia.Data.Common;
     using CitationUniSofia.Data.Model;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -504,7 +505,7 @@
             db.SaveChanges();
         }
 
-        private static void ConfigureServices(ServiceCollection serviceCollection)
+        private static void ConfigureServices(ServiceCollection services)
         {
 
             var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
@@ -512,9 +513,13 @@
                 .AddEnvironmentVariables()
                 .Build();
 
-            serviceCollection.AddDbContext<CitationUniSofiaContext>(options =>
+            services.AddDbContext<CitationUniSofiaContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection")));
+
+
+            //Application services
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 
         }
     }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CitationUniSofia.Data.Common;
 
 namespace CitationUniSofia.Web
 {
@@ -56,6 +57,9 @@ namespace CitationUniSofia.Web
                 .AddEntityFrameworkStores<CitationUniSofiaContext>();
             }
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //Application services
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
