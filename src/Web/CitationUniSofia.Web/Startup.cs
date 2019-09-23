@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CitationUniSofia.Data.Common;
+using CitationUniSofia.Services.DataServices;
 
 namespace CitationUniSofia.Web
 {
@@ -60,6 +61,7 @@ namespace CitationUniSofia.Web
 
             //Application services
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+            services.AddScoped<IPublicationsService, PublicationsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

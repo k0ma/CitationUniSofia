@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CitationUniSofia.Data;
+using CitationUniSofia.Services.DataServices;
+using CitationUniSofia.Services.Models.Publication;
 using Microsoft.AspNetCore.Mvc;
-using CitationUniSofia.Data;
-using CitationUniSofia.Data.Model;
-using CitationUniSofia.Data.Common;
-using CitationUniSofia.Web.Models.Publication;
+using System.Diagnostics;
 
 namespace CitationUniSofia.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository<Publication> publicationsRepository;
+        private readonly IPublicationsService publicationsService;
 
-        public HomeController(IRepository<Publication> publicationsRepository)
+        public HomeController(IPublicationsService publicationsService)
         {
-            this.publicationsRepository = publicationsRepository;
+            this.publicationsService = publicationsService;
         }
 
         public IActionResult Index()
@@ -32,20 +27,7 @@ namespace CitationUniSofia.Web.Controllers
 
         public IActionResult Publications()
         {
-            var publications = this.publicationsRepository.All().Select(x => new PublicationViewModel
-            {
-                ISSN = x.ISSN,
-                Title = x.Title,
-                IndexedResource = x.IndexedResource,
-                AlternativeIndexedResource = x.AlternativeIndexedResource,
-                Detail = x.Detail,
-                Summary = x.Summary,
-                PublicationTypeName = x.PublicationType.Name,
-                Language = x.Language.Name,
-                Country = x.Country.Name,
-                Institution = x.Institution.Name,
-                PublicationsAuthors = x.PublicationsAuthors.Select(pa => pa.Author.Name).ToList()
-            });
+            var publications = this.publicationsService.GetPublications();
 
             var publicationViewModel = new PublicationsCollectionViewModel
             {

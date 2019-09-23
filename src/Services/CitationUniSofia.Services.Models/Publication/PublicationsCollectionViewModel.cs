@@ -1,4 +1,4 @@
-﻿namespace CitationUniSofia.Web.Models.Publication
+﻿namespace CitationUniSofia.Services.Models.Publication
 {
     using System.Collections.Generic;
 

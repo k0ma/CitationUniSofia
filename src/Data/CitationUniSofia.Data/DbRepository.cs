@@ -45,7 +45,13 @@
 
         public void Update(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            var entry = this.context.Entry(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                this.dbSet.Attach(entity);
+            }
+
+            entry.State = EntityState.Modified;
         }
     }
 }
