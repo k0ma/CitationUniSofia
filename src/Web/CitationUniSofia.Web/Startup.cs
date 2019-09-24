@@ -62,6 +62,9 @@ namespace CitationUniSofia.Web
             //Application services
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<IPublicationsService, PublicationsService>();
+            services.AddScoped<ICitationsService, CitationsService>();
+            services.AddScoped<IMetadataService, MetadataService>();
+            services.AddScoped<IAuthorService, AuthorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

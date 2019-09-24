@@ -1,0 +1,119 @@
+﻿@using CitationUniSofia.Services.Models
+@model CitationUniSofia.Services.Models.Publication.CreatePublicationInputModel
+
+@{
+    ViewData["Title"] = "Create";
+    var authors = this.ViewData["Authors"] as IEnumerable<SelectListItem>;
+}
+
+<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
+<h4>Create Publication</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LanguageId" class="control-label"></label>
+                <input asp-for="LanguageId" class="form-control" />
+                <span asp-validation-for="LanguageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountryId" class="control-label">Държава</label>
+                <input asp-for="CountryId" class="form-control" />
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ISSN" class="control-label">Международен стандартен номер на периодичното издание - ISSN</label>
+                <input asp-for="ISSN" class="form-control" />
+                <span asp-validation-for="ISSN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicationsAuthors" class="control-label">Автор</label>
+                <select asp-for="PublicationsAuthors" asp-items="authors" class="form-control "></select>
+                <span asp-validation-for="PublicationsAuthors" class="text-danger"></span>
+                @*@using (Html.BeginForm())
+                    {
+                        @Html.DropDownListFor(x => x.PublicationsAuthors,
+                       authors,
+                       new { @class = "form-control chosen-select", @multiple = true })
+                    }*@
+            </div>
+            <div class="form-group">
+                <label asp-for="IndexedResource" class="control-label">Заглавие на индексиран ресурс</label>
+                <input asp-for="IndexedResource" class="form-control" />
+                <span asp-validation-for="IndexedResource" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlternativeIndexedResource" class="control-label">Други форми на заглавието на индексиран ресурс</label>
+                <input asp-for="AlternativeIndexedResource" class="form-control" />
+                <span asp-validation-for="AlternativeIndexedResource" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Заглавие на източник</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title1" class="control-label">Други форми на заглавие на източник</label>
+                <input asp-for="Title1" class="form-control" />
+                <span asp-validation-for="Title1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Detail" class="control-label">Физическа характеристика – страници</label>
+                <input asp-for="Detail" class="form-control" />
+                <span asp-validation-for="Detail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FieldScienceId" class="control-label">Научна област</label>
+                <input asp-for="FieldScienceId" class="form-control" />
+                <span asp-validation-for="FieldScienceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AreasScienceId" class="control-label">Научни направления</label>
+                <input asp-for="AreasScienceId" class="form-control" />
+                <span asp-validation-for="AreasScienceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicationsMetadata" class="control-label">Ключови думи</label>
+                <input asp-for="PublicationsMetadata" class="form-control" />
+                <span asp-validation-for="PublicationsMetadata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Summary" class="control-label">Резюме</label>
+                <textarea asp-for="Summary" class="form-control"></textarea>
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicationTypeId" class="control-label">Тип на публикакцията</label>
+                <input asp-for="PublicationTypeId" class="form-control" />
+                <span asp-validation-for="PublicationTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstitutionId" class="control-label"></label>
+                <input asp-for="InstitutionId" class="form-control" />
+                <span asp-validation-for="InstitutionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to Index</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script>
+        $('select').selectpicker();
+    </script>
+}

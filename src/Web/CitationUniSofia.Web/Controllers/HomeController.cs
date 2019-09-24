@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace CitationUniSofia.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IPublicationsService publicationsService;
 
@@ -16,11 +16,6 @@ namespace CitationUniSofia.Web.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }

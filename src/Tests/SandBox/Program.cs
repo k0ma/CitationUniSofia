@@ -3,6 +3,7 @@
     using CitationUniSofia.Data;
     using CitationUniSofia.Data.Common;
     using CitationUniSofia.Data.Model;
+    using CitationUniSofia.Services.DataServices;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -514,13 +515,12 @@
                 .Build();
 
             services.AddDbContext<CitationUniSofiaContext>(options =>
-                options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
 
             //Application services
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
-
+            services.AddScoped<IPublicationsService, PublicationsService>();
         }
     }
 }
